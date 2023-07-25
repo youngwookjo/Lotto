@@ -1,0 +1,79 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <title>로또자동번호 생성기</title>
+    <style>
+        .ball {
+            display: inline-block;
+            width: 30px;
+            height: 30px;
+            border-radius: 50%;
+            text-align: center;
+            line-height: 30px;
+            margin-right: 5px;
+            color: white;
+        }
+
+        #result {
+            text-align: center;
+            padding-top: 20px;
+        }
+
+        button {
+            font-size: 20px;
+            padding: 10px 20px;
+            background-color: gray;
+            color: white;
+            border: none;
+            border-radius: 5px;
+            cursor: pointer;
+            transition: background-color 0.3s ease;
+        }
+
+        button:hover {
+            background-color: darkgray;
+        }
+    </style>
+</head>
+<body>
+    <h1 style="text-align: center;">로또자동번호 생성기</h1>
+    <div style="text-align: center;">
+        <button onclick="generateLottoNumbers()">재생성</button>
+    </div>
+    <div id="result"></div>
+
+    <script>
+        var colors = ["red", "orange", "green", "blue", "gray"];
+        
+        function generateLottoNumbers() {
+            let numbers = [];
+            while (numbers.length < 7) {
+                let number = Math.floor(Math.random() * 45) + 1;
+                if (!numbers.includes(number)) {
+                    numbers.push(number);
+                }
+            }
+
+            let bonus = numbers.pop();
+
+            document.getElementById('result').innerHTML = '';
+            for (let number of numbers) {
+                let ball = document.createElement('div');
+                ball.className = 'ball';
+                ball.textContent = number;
+                ball.style.backgroundColor = colors[Math.floor(Math.random() * colors.length)];
+                document.getElementById('result').appendChild(ball);
+            }
+
+            let plus = document.createTextNode('+');
+            document.getElementById('result').appendChild(plus);
+
+            let bonusBall = document.createElement('div');
+            bonusBall.className = 'ball';
+            bonusBall.textContent = bonus;
+            bonusBall.style.backgroundColor = 'gold';
+            document.getElementById('result').appendChild(bonusBall);
+        }
+    </script>
+</body>
+</html>
